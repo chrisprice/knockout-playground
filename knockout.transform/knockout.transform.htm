@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      .touch {
+        background:red;
+        width:200px;
+        height:200px;
+        position: absolute;
+        border: 50px solid black;
+        border-radius: 200px;
+        margin: -150px;
+      }
+    </style>
+  </head>
+  <body data-bind="touches: touches">
+    <div data-bind='template: { name: "touchTemplate", foreach: touches }'>
+      <script id='touchTemplate' type='text/html'>
+          <div class="touch" data-bind="transform: { 
+            tx: $data.clientX, ty: $data.clientY, 
+            m11: 1 - (vm.touches().length - 1) * 0.1, 
+            m22: 1 - (vm.touches().length - 1) * 0.1 }"></div>
+      </script>      
+    </div>
+    <div data-bind="text: touches().length"></div>
+    <script src="../jquery-1.6.4.js"></script>
+    <script src="../jquery.tmpl.js"></script>
+    <script src="../knockout-1.2.1.debug.js"></script>
+    <script src="knockout.transform.js"></script>
+    <script src="knockout.touches.js"></script>
+    <script>
+      var vm = {
+        touches: ko.observableArray([])
+      };
+      
+      ko.applyBindings(vm);
+    </script>
+  </body>
+</html>
